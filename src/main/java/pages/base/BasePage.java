@@ -133,4 +133,10 @@ public class BasePage {
     public void waitElementIsDisplay(By locator, int second) {
         new WebDriverWait(driver, Duration.ofSeconds(second)).until(d -> isElementDisplay(locator));
     }
+
+    protected void enterText(By fullNameField, String ивановИванИванович) {
+    }
+
+    public void selectValueFromDropdown(By dropdownSelect, String two) {
+    }
 }

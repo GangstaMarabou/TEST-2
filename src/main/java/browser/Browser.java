@@ -4,42 +4,32 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
 
-import java.time.Duration;
-
-import static browser.Config.BROWSER_TYPE;
-
+/**
+ * Класс для управления браузером.
+ * Содержит методы для создания и настройки WebDriver.
+ */
 public class Browser {
 
-    public static WebDriver createDriver(){
+    /**
+     * Создает и настраивает экземпляр WebDriver для Chrome.
+     * Использует WebDriverManager для автоматической загрузки драйвера.
+     *
+     * @return Настроенный экземпляр WebDriver
+     */
+    public static WebDriver createDriver() {
+        // Настраиваем WebDriverManager для автоматической загрузки ChromeDriver
+        WebDriverManager.chromedriver().setup();
 
-        WebDriver driver;
+        // Создаем объект настроек Chrome
+        ChromeOptions options = new ChromeOptions();
 
-        switch (BROWSER_TYPE){
-            case "chrome":
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless");
-                chromeOptions.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
-                driver = new ChromeDriver(chromeOptions);
-                break;
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("--headless");
-                firefoxOptions.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
-                driver = new FirefoxDriver(firefoxOptions);
-                break;
-            default:
-                throw new IllegalArgumentException("Некорректное имя браузера: " + BROWSER_TYPE);
-        }
+        // Добавляем опции для Chrome
+        options.addArguments("--start-maximized"); // Запуск в максимальном размере
+        options.addArguments("--remote-allow-origins=*"); // Разрешаем удаленные подключения
+        options.addArguments("--disable-notifications"); // Отключаем уведомления
 
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-
-        return driver;
+        // Создаем и возвращаем экземпляр ChromeDriver с настройками
+        return new ChromeDriver(options);
     }
 }

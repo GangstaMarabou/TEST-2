@@ -23,6 +23,17 @@
             <artifactId>selenium-java</artifactId>
             <version>4.30.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.82</version>
+        </dependency>
+        <!-- Добавьте другие зависимости по аналогии -->
 
         <!-- Фреймворк для тестирования  -->
         <dependency>
